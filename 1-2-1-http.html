@@ -1,0 +1,298 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <title>Web Programming School - Node.js</title>
+
+  <link rel="stylesheet" href="css/reveal.css">
+  <link rel="stylesheet" href="css/theme/blood.css">
+
+  <!-- Theme used for syntax highlighting of code -->
+  <link rel="stylesheet" href="lib/css/zenburn.css">
+
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css';
+    document.getElementsByTagName('head')[0].appendChild(link);
+  </script>
+</head>
+
+<body>
+  <div class="reveal">
+    <div class="slides">
+      <section>
+        <h1>HTTP 까보기</h1>
+      </section>
+      <section>
+        <h1>Wireshark</h1>
+        <img height="500" src="https://www.wireshark.org/docs/wsug_html/wsug_graphics/ws-time-reference.png" alt="">
+      </section>
+      <section>
+        <section>
+          <h1>Chrome Devtools</h1>
+          <img height="500" src="https://developers.google.com/web/tools/chrome-devtools/images/panels/network.png?hl=ko" alt="">
+        </section>
+        <section>
+          <h1>참고자료</h1>
+          <a target="_blank" href="https://developers.google.com/web/tools/chrome-devtools/network-performance/resource-loading?hl=ko">Chrome DevTools를 이용한 리소스 로드 시간 측정</a>
+        </section>
+      </section>
+      <section>
+        <h1>HTTP</h1>
+        <ul>
+          <li class="fragment"><strong>웹 브라우저와 웹 서버 간의 통신</strong>을 위해 개발된 통신규약</li>
+          <li class="fragment">
+            최근에는 <strong>REST API의 부상</strong>와 함께 다른 용도로도 널리 사용됨
+            <ul>
+              <li class="fragment">모바일 앱 - 서버 간 통신</li>
+              <li class="fragment">서버 - 서버 간 통신</li>
+            </ul>
+          </li>
+          <li class="fragment"><strong>80번 포트</strong>를 기본으로 사용</li>
+          <li class="fragment">클라이언트의 <strong>요청(request)</strong>과 <br>서버의 <strong>응답(response)</strong>으로 이루어짐</li>
+        </ul>
+      </section>
+      <section>
+        <section>
+          <h1>역사</h1>
+          <dl>
+            <dt>1991</dt>
+            <dd>HTTP 초기버전 발표. <strong>텍스트만 전송</strong>할 수 있는 극도로 단순한 프로토콜. 1990년대 초 인터넷 붐을 일으킴</dd>
+            <dt>1996</dt>
+            <dd>여러 인터넷 서비스 업체들이 자체적으로 사용하던 HTTP 구현들을 모아 HTTP 1.0 발표</dd>
+            <dt>1999</dt>
+            <dd>1.0의 문제를 해결하고 여러가지 기능을 추가한 HTTP 1.1을 발표. <strong>지금까지 사용되고 있는 버전</strong></dd>
+          </dl>
+        </section>
+        <section>
+          <h1>참고자료</h1>
+          <a target="_blank" href="https://hpbn.co/brief-history-of-http/">Brief History of HTTP</a>
+        </section>
+      </section>
+      <section>
+        <h1>HTTPS</h1>
+        <ul>
+          <li class="fragment">HTTP over SSL</li>
+          <li class="fragment">HTTP 통신을 암호화해 주고받는 내용을 중간에서 가로챌 수 없도록 함</li>
+          <li class="fragment"><strong>443번 포트</strong>를 기본으로 사용</li>
+        </ul>
+      </section>
+      <section>
+        <section>
+          <h1>HTTP/2</h1>
+          <ul>
+            <li class="fragment"><strong>구글의 SPDY 프로토콜</strong>을 기반으로 2015년에 확정된 새로운 HTTP 표준</li>
+            <li class="fragment"><strong>속도 개선</strong>에 중점을 두고 개발됨</li>
+            <li class="fragment"><strong>반드시 HTTPS를 사용해야 함</strong></li>
+            <li class="fragment"><a target="_blank" href="https://w3techs.com/technologies/details/ce-http2/all/all">현재 전체 웹사이트 중 16% 이상이 사용중</a></li>
+          </ul>
+        </section>
+        <section>
+          <h1>참고자료</h1>
+          <a target="_blank" href="http://d2.naver.com/helloworld/140351">spdy는 무엇인가?</a>
+        </section>
+      </section>
+      <section>
+        <h1>HTTP 구성요소</h1>
+      </section>
+      <section>
+        <section>
+          <h1>Request &amp; Response</h1>
+          <ul>
+            <li class="fragment">웹 브라우저(또는 다른 클라이언트)는 웹 서버에 요청(request)를 보냄</li>
+            <li class="fragment">그에 따라 서버는 클라이언트에 응답(response)를 보냄</li>
+            <li class="fragment">웹 브라우저의 경우, <strong>HTML 문서 형태의 응답</strong>이 오면 해당 문서를 분석한 후, <strong>문서에 포함된 모든 자원에 대한 요청을 각각 추가로 보냄</strong> (이미지, 동영상, 오디오, CSS, JS, 폰트, ...)</li>
+          </ul>
+        </section>
+        <section>
+          <h1>참고자료</h1>
+          <a target="_blank" href="https://github.com/alex/what-happens-when">What Happens When</a>
+        </section>
+      </section>
+      <section>
+        <section>
+          <h1>Request Methods</h1>
+          <ul>
+            <li class="fragment"><a target="_blank" href="https://developer.mozilla.org/ko/docs/Web/HTTP/Methods">HTTP 명세에는 8 종류</a>가 등록되어 있고, 각각의 역할과 충족해야 하는 성질이 명시되어 있음</li>
+            <li class="fragment">웹 브라우저는 <strong>특정 상황에서 특정 메소드로 요청을 보내도록 만들어져 있음</strong></li>
+            <li class="fragment">Ajax와 같이 <strong>요청을 보내는 코드를 직접 짤 때</strong>는 요청 메소드를 선택할 수 있음</li>
+            <li class="fragment"><strong>자료의 본문을 요청하는 GET</strong> 메소드와, <strong>새로운 자료를 등록하는 POST</strong> 메소드가 가장 많이 쓰임</li>
+          </ul>
+        </section>
+        <section>
+          <h1>참고자료</h1>
+          <a target="_blank" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html">HTTP Method Definitions</a>
+        </section>
+      </section>
+      <section>
+        <h2><small>(서버가 충족시켜야 하는)</small> 메소드의 성질</h2>
+        <dl>
+          <dt>Safe</dt>
+          <dd>요청이 서버의 상태에 영향을 미치지 않아야 함. 즉, <strong>읽기 전용</strong></dd>
+          <dt>Idempotent</dt>
+          <dd>여러 번 같은 요청을 해도 한 번 요청한 것과 같은 효과여야 함. <strong>네트워크가 불안정해도 안전하게 요청을 보낼 수 있음</strong></dd>
+          <dt>Cacheable</dt>
+          <dd>(특정 조건을 만족하면) 응답을 클라이언트에 저장해두었다가 다음 번 요청 때 <strong>다시 쓸 수 있음</strong></dd>
+        </dl>
+      </section>
+      <section>
+        <img src="https://imgur.com/HEDlwPSl.png" />
+        <p><a target="_blank" href="https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Summary_table">link</a></p>
+        <p><small>반드시 이 성질을 따르도록 서버를 구현해야 하는 것은 아니나, <br>구현했을 때의 이점이 있으므로 이대로 구현하는 것이 좋다</small></p>
+      </section>
+      <section>
+        <h1>URL</h1>
+        <img height="500" src="https://cascadingmedia.com/assets/images/insites/2015/02/url-anatomy/url-anatomy-55598c24.png" alt="">
+        <p><a href="https://httpbin.org/get">httpbin.org/get</a></p>
+      </section>
+      <section>
+        <h1>Percent Encoding</h1>
+        <ul>
+          <li class="fragment">URL은 <strong>ASCII 문자</strong>(128개의 영문자+특수문자+제어문자)밖에 사용하지 못하기 때문에, non-ASCII 문자를 위한 표현방법이 필요함 <a target="_blank" href="https://www.google.co.kr/search?q=패스트캠퍼스">#</a></li>
+          <li class="fragment">
+            <strong>Percent encoding</strong>은 <strong>non-ASCII 문자를 위한 웹 표준 인코딩 방법</strong>으로, JavaScript에 관련 기능이 포함되어 있음
+            <pre><code data-trim>
+> encodeURIComponent("한글")
+"%ED%95%9C%EA%B8%80"
+> decodeURIComponent("%ED%95%9C%EA%B8%80")
+"한글"
+            </code></pre>
+          </li>
+        </ul>
+      </section>
+      <section>
+        <h1>Request Target</h1>
+        <p>일반적인 경우 아래와 같은 구조가 사용됨</p>
+        <p><strong>absolute path</strong> + <strong>query string</strong> + <strong>fragment id</strong></p>
+        <pre><code data-trim>
+GET /path/to/resource?foo=bar&amp;spam=hoge#fragid HTTP/1.1
+        </code></pre>
+      </section>
+      <section>
+        <h1>Response Status</h1>
+        <p>응답의 성공, 실패 여부와 종류를 나타내며, <br><strong>상태 코드 + 상태 메시지</strong>의 형태로 응답에 포함됨</p>
+        <pre><code data-trim>
+HTTP/1.1 200 OK
+        </code></pre>
+        <p><a target="_blank" href="https://httpstatuses.com/">HTTP Status Codes</a></p>
+      </section>
+      <section>
+        <h1>Status Category</h1>
+        <dl>
+          <dt>2xx</dt>
+          <dd>성공</dd>
+          <dt>3xx</dt>
+          <dd>추가 작업이 필요함</dd>
+          <dt>4xx</dt>
+          <dd>실패 - 클라이언트 책임</dd>
+          <dt>5xx</dt>
+          <dd>실패 - 서버 책임</dd>
+        </dl>
+      </section>
+      <section>
+        <h1>Status Code - 2xx</h1>
+        <dl>
+          <dt>200 OK</dt>
+          <dd>성공</dd>
+          <dt>201 Created</dt>
+          <dd>자료가 성공적으로 생성됨</dd>
+        </dl>
+      </section>
+      <section>
+        <h1>Status Code - 3xx</h1>
+        <dl>
+          <dt>301 Moved Permanently (Redirection)</dt>
+          <dd>자료가 완전히 다른 곳으로 이동했음</dd>
+          <dt>302 Found (Redirection)</dt>
+          <dd>자료가 일시적으로 다른 곳에 있음</dd>
+          <dt>304 Not Modified (Cache)</dt>
+          <dd>클라이언트가 이미 가지고 있던 자료가 수정되지 않았음 (그대로 사용하면 됨)</dd>
+        </dl>
+      </section>
+      <section>
+        <h1>Status Code - 4xx</h1>
+        <dl>
+          <dt>400 Bad Request</dt>
+          <dd>요청의 형태가 잘못되어 응답할 수 없음</dd>
+          <dt>403 Forbidden</dt>
+          <dd>요청한 자료에 접근할 권한이 없음</dd>
+          <dt>404 Not Found</dt>
+          <dd>요청한 자료가 없음</dd>
+        </dl>
+      </section>
+      <section>
+        <h1>Status Code - 5xx</h1>
+        <dl>
+          <dt>500 Internal Server Error</dt>
+          <dd>요청을 처리하던 중에 예상치 못한 오류가 발생함</dd>
+          <dt>503 Service Unavailable</dt>
+          <dd>서버가 일시적으로 응답을 할 수 없음</dd>
+        </dl>
+      </section>
+      <section>
+        <p>
+          <a target="_blank" href="https://en.wikipedia.org/wiki/Hyper_Text_Coffee_Pot_Control_Protocol">Hyper Text Coffee Pot Control Protocol</a>
+        </p>
+        <p>
+          <a target="_blank" href="https://tools.ietf.org/html/rfc2324#section-2.3.2">418 I'm a teapot</a>
+        </p>
+      </section>
+      <section>
+        <h1>Header</h1>
+        <ul>
+          <li class="fragment"><strong>요청과 응답</strong>에 대한 <strong>추가 정보</strong>를 표현하는 데 사용됨</li>
+          <li class="fragment">인증, 캐싱, 쿠키, 보안, 내용협상, 프록시 등 웹 표준에 정의된 많은 <strong>기능을 제어</strong>하는 데 사용됨</li>
+        </ul>
+      </section>
+      <section>
+        <dl>
+          <dt>Authorization</dt>
+          <dd>요청의 인증 정보</dd>
+          <dt>User-Agent</dt>
+          <dd>요청 중인 클라이언트의 정보</dd>
+          <dt>Location</dt>
+          <dd>301, 302 응답에서 자료의 위치</dd>
+          <dt>Accept</dt>
+          <dd>요청이 어떤 형태의 자료를 원하는지 나타냄</dd>
+          <dt>Content-Type</dt>
+          <dd>요청 혹은 응답이 어떤 형태의 자료인지 나타냄</dd>
+        </dl>
+      </section>
+      <section>
+        <h1>Content Negotiation</h1>
+        <p>요청의 Accept, Accept-Language 등의 헤더를 보고 서버가 그에 맞는 형태의 자료를 응답하는 절차를 content negotiation(내용협상)이라고 함</p>
+        <img src="https://www.codeproject.com/KB/aspnet/1163143/Fig01-ContentNegotiation.png" alt="">
+      </section>
+      <section>
+        <h1>Next</h1>
+        <a href="1-2-2-express.html">Express</a>
+      </section>
+    </div>
+  </div>
+
+  <script src="lib/js/head.min.js"></script>
+  <script src="js/reveal.js"></script>
+
+  <script>
+      // More info about config & dependencies:
+      // - https://github.com/hakimel/reveal.js#configuration
+      // - https://github.com/hakimel/reveal.js#dependencies
+      Reveal.initialize({
+        dependencies: [
+          { src: 'plugin/markdown/marked.js' },
+          { src: 'plugin/markdown/markdown.js' },
+          { src: 'plugin/notes/notes.js', async: true },
+          { src: 'plugin/highlight/highlight.js', async: true, callback: function () { hljs.initHighlightingOnLoad(); } }
+        ]
+      });
+  </script>
+</body>
+
+</html>
+

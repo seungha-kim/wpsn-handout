@@ -1,0 +1,140 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <title>Web Programming School - Node.js</title>
+
+  <link rel="stylesheet" href="css/reveal.css">
+  <link rel="stylesheet" href="css/theme/blood.css">
+
+  <!-- Theme used for syntax highlighting of code -->
+  <link rel="stylesheet" href="lib/css/zenburn.css">
+
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css';
+    document.getElementsByTagName('head')[0].appendChild(link);
+  </script>
+</head>
+
+<body>
+  <div class="reveal">
+    <div class="slides">
+      <section>
+        <h1>Express</h1>
+      </section>
+      <section>
+        <h1>실습환경</h1>
+        <a target="_blank" href="https://glitch.com/edit/#!/wpsn-glitch-tutorial">Glitch Tutorial</a>
+      </section>
+      <section>
+        <h1>Express</h1>
+        <ul>
+          <li>Node.js 생태계에서 <strong>가장 널리 쓰이는 웹 프레임워크</strong></li>
+          <li>내장하고 있는 기능은 매우 적으나, <strong>미들웨어</strong>를 주입하는 방식으로 기능을 확장하는 <strong>생태계</strong>를 가지고 있음</li>
+          <li><a target="_blank" href="https://expressjs.com/ko/">공식 매뉴얼 한국어 번역</a></li>
+        </ul>
+      </section>
+      <section>
+        <h1>Express 앱의 기본 구조</h1>
+        <pre><code data-trim class="javascript">
+// Express 인스턴스 생성
+const app = express()
+
+// 미들웨어 주입, 라우트 핸들러 등록
+app.use(sessionMiddleware())
+app.use(authenticationMiddleware())
+app.get('/', (request, response) => {
+  response.send('Hello express!')
+})
+
+// 서버 구동
+app.listen(3000, () => {
+  console.log('Example app listening on port 3000!')
+})
+        </code></pre>
+      </section>
+      <section>
+        <h1>Routing</h1>
+        <pre><code data-trim class="javascript">
+// 요청 메소드(GET, POST, ...)와 같은 이름의 메소드를 사용
+app.get('/articles', (req, res) => {
+  res.send('Hello Routing!')
+})
+// 특정 경로에만 미들웨어를 주입하는 것도 가능
+app.post('/articles', bodyParserMiddleware(), (req, res) => {
+  database.articles.create(req.body)
+    .then(() => {
+      res.send({ok: true})
+    })
+})
+// 경로의 특정 부분을 함수의 인자처럼 입력받을 수 있음
+app.get('/articles/:id', (req, res) => {
+  database.articles.find(req.params.id) // `req.params`에 저장됨
+    .then(article => {
+      res.send(article)
+    })
+})
+        </code></pre>
+      </section>
+      <section>
+        <h1>Request 객체</h1>
+        <dl>
+          <dt>req.body</dt>
+          <dd>요청 바디를 적절한 형태의 자바스크립트 객체로 변환하여 이곳에 저장 <small>(<strong>body-parser 미들웨어</strong>에 의해 처리됨)</small></dd>
+          <dt>req.ip</dt>
+          <dd>요청한 쪽의 IP</dd>
+          <dt>req.params</dt>
+          <dd>route parameter</dd>
+          <dt>req.query</dt>
+          <dd>query string이 객체로 저장됨</dd>
+        </dl>
+      </section>
+      <section>
+        <h1>Response 객체</h1>
+        <dl>
+          <dt>res.status(...)</dt>
+          <dd>응답의 상태 코드를 지정하는 메소드</dd>
+          <dt>res.append(...)</dt>
+          <dd>응답의 헤더를 지정하는 메소드</dd>
+          <dt>res.send(...)</dt>
+          <dd>응답의 바디를 지정하는 메소드 <br>인자가 <strong>텍스트</strong>면 <strong>text/html</strong>, <strong>객체</strong>면 <strong>application/json</strong> 타입으로 응답</dd>
+        </dl>
+      </section>
+      <section>
+        <h1>실습</h1>
+        <!-- 배웠던 것 전부 실습  -->
+        <p><a target="_blank" href="https://glitch.com/edit/#!/wpsn-hello-express">프로젝트 링크</a></p>
+      </section>
+      <section>
+        <h1>Next</h1>
+        <a href="1-2-3-template.html">Template Language</a>
+      </section>
+    </div>
+  </div>
+
+  <script src="lib/js/head.min.js"></script>
+  <script src="js/reveal.js"></script>
+
+  <script>
+      // More info about config & dependencies:
+      // - https://github.com/hakimel/reveal.js#configuration
+      // - https://github.com/hakimel/reveal.js#dependencies
+      Reveal.initialize({
+        dependencies: [
+          { src: 'plugin/markdown/marked.js' },
+          { src: 'plugin/markdown/markdown.js' },
+          { src: 'plugin/notes/notes.js', async: true },
+          { src: 'plugin/highlight/highlight.js', async: true, callback: function () { hljs.initHighlightingOnLoad(); } }
+        ]
+      });
+  </script>
+</body>
+
+</html>

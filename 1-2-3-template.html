@@ -1,0 +1,168 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <title>Web Programming School - Node.js</title>
+
+  <link rel="stylesheet" href="css/reveal.css">
+  <link rel="stylesheet" href="css/theme/blood.css">
+
+  <!-- Theme used for syntax highlighting of code -->
+  <link rel="stylesheet" href="lib/css/zenburn.css">
+
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css';
+    document.getElementsByTagName('head')[0].appendChild(link);
+  </script>
+</head>
+
+<body>
+  <div class="reveal">
+    <div class="slides">
+      <section>
+        <h1>Template Language</h1>
+      </section>
+      <section>
+        <h2>Static Web Page</h2>
+        <p>누가 어떻게 요청하든 미리 저장되어 있던 HTML 파일을 그대로 응답</p>
+        <h2>Dynamic Web Page</h2>
+        <p>요청한 사람과 요청한 내용에 따라 <strong>각각 다른 내용으로 편집한 HTML을 응답</strong></p>
+      </section>
+      <section>
+        <h1>웹 초창기 - CGI</h1>
+        <pre><code data-trim>
+int main(void)
+{
+  char *data;
+  long m,n;
+  printf("%s%c%c\n", "Content-Type:text/html",13,10);
+  printf("&lt;TITLE&gt;Multiplication results&lt;/TITLE&gt;\n");
+  printf("&lt;H3&gt;Multiplication results&lt;/H3&gt;\n");
+  data = getenv("QUERY_STRING");
+  if(data == NULL)
+    printf("&lt;P&gt; Error in passing data from form to script.");
+  else if(sscanf(data,"m=%ld&n=%ld",&m,&n)!=2)
+    printf("&lt;P&gt;Error! Invalid data. Data must be numeric.");
+  else
+    printf("&lt;P&gt;The product of %ld and %ld is %ld.",m,n,m*n);
+  return 0;
+}
+        </code></pre>
+      </section>
+      <section>
+        <img src="https://imgur.com/quqak5Kl.png" />
+      </section>
+      <section>
+        <h1>Template Engine</h1>
+        <ul>
+          <li><strong>템플릿과 데이터를 결합</strong>해 문서를 만들어내는 프로그램</li>
+          <li>템플릿을 작성할 때 사용하는 언어를 <strong>템플릿 언어</strong>라고 함</li>
+        </ul>
+      </section>
+      <section>
+        <h1>EJS</h1>
+        <p>Embedded JavaScript Template <a target="_blank" href="http://ejs.co">#</a></p>
+        <ul>
+          <li>Node.js 생태계에서 가장 많이 사용되는 템플릿 엔진</li>
+          <li>문법이 단순</li>
+          <li>JavaScript 코드를 템플릿 안에서 그대로 쓸 수 있음</li>
+          <li><a href="https://marketplace.visualstudio.com/items?itemName=QassimFarid.ejs-language-support">.ejs VSCode Extension</a></li>
+        </ul>
+      </section>
+      <section>
+        <h1>Example</h1>
+        <pre><code data-trim class="ejs">
+&lt;%# index.ejs %&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;&lt;%= title %&gt;&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;div class="message"&gt;
+      &lt;%= message %&gt;
+    &lt;/div&gt;
+    &lt;% if (showSecret) { %&gt;
+      &lt;div&gt;my secret&lt;/div&gt;
+    &lt;% } %&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+        </code></pre>
+      </section>
+      <section>
+        <h1>Express에서 EJS 사용하기</h1>
+        <ul style="display: block;">
+          <li>
+            ejs 설치
+            <pre><code data-trim>
+$ npm install --save ejs
+            </code></pre>
+          </li>
+          <li>
+            template engine 설정
+            <pre><code data-trim>
+app.set('view engine', 'ejs')
+            </code></pre>
+          </li>
+          <li>
+            res.render()
+            <pre><code data-trim>
+const data = {
+  title: 'Template Language',
+  message: 'Hello EJS!',
+  showSecret: true
+}
+res.render('index.ejs', data)
+            </code></pre>
+          </li>
+        </ul>
+      </section>
+      <section>
+        <p><a href="https://glitch.com/edit/#!/wpsn-hello-ejs">EJS 예제</a></p>
+      </section>
+      <section>
+        <h1>Serving Static Files</h1>
+        <pre><code data-trim>
+// `public` 폴더에 있는 파일을 `/static` 경로 아래에서 제공
+app.use('/static', express.static('public'))
+        </code></pre>
+        <pre><code data-trim>
+&lt;!-- 템플릿 파일에서 참조할 수 있음 --&gt;
+&lt;link rel="stylesheet" href="/static/index.css"&gt;
+&lt;script type="text/javascript" src="/static/index.js"&gt;&lt;/script&gt;
+        </code></pre>
+      </section>
+      <section>
+        <p><a href="https://glitch.com/edit/#!/wpsn-ejs-profile">EJS 실습</a></p>
+      </section>
+      <section>
+        <h1>수고하셨습니다</h1>
+      </section>
+    </div>
+  </div>
+
+  <script src="lib/js/head.min.js"></script>
+  <script src="js/reveal.js"></script>
+
+  <script>
+      // More info about config & dependencies:
+      // - https://github.com/hakimel/reveal.js#configuration
+      // - https://github.com/hakimel/reveal.js#dependencies
+      Reveal.initialize({
+        dependencies: [
+          { src: 'plugin/markdown/marked.js' },
+          { src: 'plugin/markdown/markdown.js' },
+          { src: 'plugin/notes/notes.js', async: true },
+          { src: 'plugin/highlight/highlight.js', async: true, callback: function () { hljs.initHighlightingOnLoad(); } }
+        ]
+      });
+  </script>
+</body>
+
+</html>

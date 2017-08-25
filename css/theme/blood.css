@@ -124,7 +124,8 @@ body {
   margin-left: 40px; }
 
 .reveal dt {
-  font-weight: bold; }
+  font-weight: bold;
+  margin-top: 10px; }
 
 .reveal dd {
   margin-left: 40px; }
@@ -169,7 +170,7 @@ body {
   display: block;
   padding: 5px;
   overflow: auto;
-  max-height: 400px;
+  max-height: 500px;
   word-wrap: normal; }
 
 .reveal table {
@@ -208,10 +209,12 @@ body {
   display: inline-block;
   font-size: 0.6em;
   line-height: 1.2em;
-  vertical-align: top; }
+  /* vertical-align: top;  */
+}
 
 .reveal small * {
-  vertical-align: top; }
+  /* vertical-align: top;  */
+}
 
 /*********************************************
  * LINKS

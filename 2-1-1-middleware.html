@@ -1,0 +1,27 @@
+<section>
+        <h1>미들웨어 역할</h1>
+        ip 로깅 기능을 예로 들자
+        보조 기능을 여러 라우터?에서 재사용하기 위해
+        로깅, 요청 body 변환, 사용자 인증, 권한 관리 - 재사용해야 하는 기능
+      </section>
+      <section>
+        <h1>미들웨어 작성</h1>
+        <!-- 사실 라우팅 핸들러도 미들웨어의 일종임  -->
+        app.use 하는 순서가 중요**
+        next - 다음 미들웨어 혹은 라우터로 넘긴다
+        next('route')
+        next(err)
+        next가 python decorator같은 역할을 하는 거라고 생각했는데 전혀 아니군..
+      </section>
+      <section>
+        <h1>404, 500</h1>
+        custom 404 custom 500
+      </section>
+      <section>
+        <h1>미들웨어 생태계</h1>
+        https://expressjs.com/ko/resources/middleware.html
+
+        express-basic-auth
+        body-parser
+        morgan
+      </section>
