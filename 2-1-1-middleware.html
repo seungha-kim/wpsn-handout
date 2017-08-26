@@ -1,27 +1,133 @@
-<section>
-        <h1>미들웨어 역할</h1>
-        ip 로깅 기능을 예로 들자
-        보조 기능을 여러 라우터?에서 재사용하기 위해
-        로깅, 요청 body 변환, 사용자 인증, 권한 관리 - 재사용해야 하는 기능
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <title>Web Programming School - Node.js</title>
+
+  <link rel="stylesheet" href="css/reveal.css">
+  <link rel="stylesheet" href="css/theme/blood.css">
+
+  <!-- Theme used for syntax highlighting of code -->
+  <link rel="stylesheet" href="lib/css/zenburn.css">
+
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css';
+    document.getElementsByTagName('head')[0].appendChild(link);
+  </script>
+</head>
+
+<body>
+  <div class="reveal">
+    <div class="slides">
+      <section>
+        <h1>Express Middleware</h1>
       </section>
       <section>
-        <h1>미들웨어 작성</h1>
-        <!-- 사실 라우팅 핸들러도 미들웨어의 일종임  -->
-        app.use 하는 순서가 중요**
-        next - 다음 미들웨어 혹은 라우터로 넘긴다
-        next('route')
-        next(err)
-        next가 python decorator같은 역할을 하는 거라고 생각했는데 전혀 아니군..
+        <h1>Middelware?</h1>
+        <pre><code data-trim>
+// 미들웨어 = 함수
+function helloMiddleware(res, req, next) {
+  console.log('hello')
+  next()
+}
+
+app.use(helloMiddleware)
+        </code></pre>
       </section>
       <section>
-        <h1>404, 500</h1>
-        custom 404 custom 500
+        <h1>Middleware</h1>
+        <ul>
+          <li><strong>그냥 함수</strong>, 즉 안에서 어떤 작업이든 가능</li>
+          <li>request 객체, response 객체, <strong>next 함수</strong>를 인자로 받음</li>
+          <li>request 객체, response 객체를 조작해서 기능 구현</li>
+          <li>app 객체나 라우트 핸들러에 갯수 제한 없이 주입 가능</li>
+          <li><strong>다음 미들웨어</strong>를 동작시키기 위해 <strong>next 함수를 인자 없이 호출</strong></li>
+        </ul>
+      </section>
+      <section>
+        <h1>미들웨어로 하는 일</h1>
+        <ul>
+          <li>로깅</li>
+          <li>HTTP body를 객체로 변환</li>
+          <li>사용자 인증</li>
+          <li>권한 관리</li>
+          <li>...</li>
+        </ul>
+      </section>
+      <section>
+        <h1>Why middleware?</h1>
+        <p>미들웨어로 할 수 있는 모든 일은 라우트 핸들러에서도 할 수 있으나, 여러 라우터에서 사용해야 하는 기능을 중복 작성하는 불편을 덜고 <strong>코드를 재사용</strong>하기 위해 미들웨어를 사용하는 것</p>
       </section>
       <section>
         <h1>미들웨어 생태계</h1>
-        https://expressjs.com/ko/resources/middleware.html
-
-        express-basic-auth
-        body-parser
-        morgan
+        <p><a href="https://expressjs.com/ko/resources/middleware.html">Express resource</a></p>
+        <p><a href="https://www.npmjs.com/search?q=express+middleware">NPM search</a></p>
       </section>
+      <section>
+        <h1>미들웨어 예제</h1>
+        <p><a href="https://glitch.com/edit/#!/wpsn-middleware-example">Link</a></p>
+      </section>
+      <section>
+        <h1>미들웨어 vs 라우트 핸들러</h1>
+        <ul>
+          <li>라우트 핸들러도 미들웨어</li>
+          <li>즉, <strong>next 함수</strong>를 인자로 받는 것이 가능</li>
+        </ul>
+        <pre><code data-trim>
+app.get('/', (req, res, next) => {
+  if (!someCondition) {
+    next() // 요청을 처리를 하지 않고 다른 핸들러로 넘김
+  } else {
+    res.send('hello')
+  }
+})
+        </code></pre>
+      </section>
+      <section>
+        <h1>실습</h1>
+        <p>Custom 404 page</p>
+        <p><a href="https://glitch.com/edit/#!/wpsn-middleware-example">Link</a></p>
+      </section>
+      <section>
+        <h1>에러 처리 미들웨어</h1>
+        <p>
+          <a href="https://expressjs.com/ko/guide/error-handling.html">Link</a>
+        </p>
+      </section>
+      <section>
+        <h1>Next</h1>
+        <a href="2-1-2-cookie.html">Cookie</a>
+      </section>
+    </div>
+  </div>
+
+  <script src="lib/js/head.min.js"></script>
+  <script src="js/reveal.js"></script>
+
+  <script>
+      // More info about config & dependencies:
+      // - https://github.com/hakimel/reveal.js#configuration
+      // - https://github.com/hakimel/reveal.js#dependencies
+      Reveal.initialize({
+        dependencies: [
+          { src: 'plugin/markdown/marked.js' },
+          { src: 'plugin/markdown/markdown.js' },
+          { src: 'plugin/notes/notes.js', async: true },
+          { src: 'plugin/highlight/highlight.js', async: true, callback: function () { hljs.initHighlightingOnLoad(); } }
+        ]
+      });
+  </script>
+</body>
+
+</html>
+
+
+
+

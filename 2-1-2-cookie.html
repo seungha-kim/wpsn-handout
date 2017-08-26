@@ -1,0 +1,139 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <title>Web Programming School - Node.js</title>
+
+  <link rel="stylesheet" href="css/reveal.css">
+  <link rel="stylesheet" href="css/theme/blood.css">
+
+  <!-- Theme used for syntax highlighting of code -->
+  <link rel="stylesheet" href="lib/css/zenburn.css">
+
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css';
+    document.getElementsByTagName('head')[0].appendChild(link);
+  </script>
+</head>
+
+<body>
+  <div class="reveal">
+    <div class="slides">
+      <section>
+        <h1>Cookie</h1>
+      </section>
+      <section>
+        <h1>쿠키의 필요성</h1>
+        <p><strong>개별 클라이언트</strong>의 <strong>여러 요청</strong>에 걸친 <strong>정보의 유지</strong></p>
+        <ul>
+          <li>장바구니</li>
+          <li>로그인/로그아웃</li>
+          <li>방문 기록</li>
+          <li>...</li>
+        </ul>
+      </section>
+      <section>
+        <h1>HTTP Cookie</h1>
+        <ul>
+          <li><strong>서버가 웹 브라우저에 보내는</strong> 이름+값 형태의 정보</li>
+          <li>웹 브라우저는 쿠키를 저장하기 위한 <strong>저장소</strong>를 가지고 있음</li>
+          <li>저장소는 <strong>자료의 유효기간</strong>과 <strong>접근 권한</strong>에 대한 <strong>다양한 옵션</strong>을 제공</li>
+        </ul>
+      </section>
+      <section>
+        <img src="https://i.imgur.com/f5jxhf8.png" />
+      </section>
+      <section>
+        <h1>쿠키 전송 절차</h1>
+        <ol>
+          <li>
+            <strong>서버는</strong> 브라우저에 저장하고 싶은 <strong>정보를 응답과 같이 실어 보낸다</strong> (Set-Cookie 헤더)
+            <pre><code data-trim class="http">
+HTTP/1.1 200 OK
+Set-Cookie: cookieName=cookieValue; Secure; Max-Age=60000
+...
+            </code></pre>
+          </li>
+          <li>
+            브라우저는 <strong>같은 서버에 요청이 일어날 때마다</strong> 해당 <strong>정보를 요청에 같이 실어서</strong> 서버에 보낸다 (Cookie 헤더)
+            <pre><code data-trim class="http">
+GET / HTTP/1.1
+Cookie: cookieName=cookieValue; anotherName=anotherValue
+...
+            </code></pre>
+          </li>
+        </ol>
+      </section>
+      <section>
+        <h1>Set-Cookie Options</h1>
+        <dl>
+          <dt>Expires, Max-Age</dt>
+          <dd>쿠키의 지속 시간 설정</dd>
+          <dt>Secure</dt>
+          <dd>HTTPS를 통해서만 쿠키가 전송되도록 설정</dd>
+          <dt>HttpOnly</dt>
+          <dd>자바스크립트에서 쿠키를 읽지 못하도록 설정</dd>
+          <dt>Domain, Path</dt>
+          <dd>쿠키의 scope 설정 (쿠키가 전송되는 URL을 제한)</dd>
+        </dl>
+      </section>
+      <section>
+        <h1>Express + Cookie</h1>
+        <dl>
+          <dt>쿠키 읽기 - req.cookies</dt>
+          <dd>요청에 실려온 쿠키가 객체로 변환되어 req.cookies에 저장됨 <br>(cookie-parser 미들웨어 필요)</dd>
+          <dt>쿠키 쓰기 - res.cookie(name, value)</dt>
+          <dd>쿠키의 생성 혹은 수정</dd>
+        </dl>
+      </section>
+      <section>
+        <h1>쿠키 예제</h1>
+        <p><a href="https://glitch.com/edit/#!/wpsn-cookie-example">Link</a></p>
+      </section>
+      <section>
+        <h1>JavaScript + Cookie</h1>
+        <p><strong>자바스크립트로도 쿠키를 읽고 쓰는 방법이 존재</strong>하지만, 보안 상 문제를 일으킬 수 있으므로 이런 접근 방식은 거의 사용되지 않는다.</p>
+        <p>자바스크립트에서 쿠키에 접근하지 못하도록 <strong>HttpOnly를 항상 설정하는 것이 best practice</strong></p>
+      </section>
+      <section>
+        <h1>쿠키의 한계점</h1>
+        <p>ascii - 보통 percent encoding을 사용</p>
+        <p>크기</p>
+        <p>브라우저에 종속됨</p>
+      </section>
+      <section>
+        <h1>3rd-pary Cookie</h1>
+      </section>
+    </div>
+  </div>
+
+  <script src="lib/js/head.min.js"></script>
+  <script src="js/reveal.js"></script>
+
+  <script>
+      // More info about config & dependencies:
+      // - https://github.com/hakimel/reveal.js#configuration
+      // - https://github.com/hakimel/reveal.js#dependencies
+      Reveal.initialize({
+        dependencies: [
+          { src: 'plugin/markdown/marked.js' },
+          { src: 'plugin/markdown/markdown.js' },
+          { src: 'plugin/notes/notes.js', async: true },
+          { src: 'plugin/highlight/highlight.js', async: true, callback: function () { hljs.initHighlightingOnLoad(); } }
+        ]
+      });
+  </script>
+</body>
+
+</html>
+
+
+
+

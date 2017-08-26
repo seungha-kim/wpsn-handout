@@ -1,0 +1,134 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <title>Web Programming School - Node.js</title>
+
+  <link rel="stylesheet" href="css/reveal.css">
+  <link rel="stylesheet" href="css/theme/blood.css">
+
+  <!-- Theme used for syntax highlighting of code -->
+  <link rel="stylesheet" href="lib/css/zenburn.css">
+
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css';
+    document.getElementsByTagName('head')[0].appendChild(link);
+  </script>
+</head>
+
+<body>
+  <div class="reveal">
+    <div class="slides">
+      <section>
+        <h1>Session</h1>
+      </section>
+      <section>
+        <h1>Session</h1>
+        <h3>사전적 의미</h3>
+        <ol>
+          <li>(특정한 활동을 위한) 시간</li>
+          <li>(의회 등의) 회기; (법정의) 개정 (기간)</li>
+        </ol>
+        <h3 style="margin-top: 30px">실질적 의미</h3>
+        <p><strong>시작 조건</strong>과 <strong>종료 조건</strong>이 정해져 있는 시간, 또는 회기</p>
+        <p><strong>정보 교환이 지속</strong>되는 시간, 또는 회기</p>
+      </section>
+      <section>
+        <h1>세션의 예</h1>
+        <dl>
+          <dt><a href="https://developer.mozilla.org/ko/docs/Web/HTTP/Session">HTTP session</a></dt>
+          <dd>요청 - 응답</dd>
+          <dt><a href="https://en.wikipedia.org/wiki/Login_session">로그인 세션</a></dt>
+          <dd>로그인 - 로그아웃</dd>
+          <dt><a href="https://support.google.com/analytics/answer/2731565?hl=ko">Google Analytics 세션</a></dt>
+          <dd>페이지 접속 - 30분간 접속이 없으면 종료로 간주 <small>(커스터마이징 가능)</small></dd>
+        </dl>
+      </section>
+      <section>
+        <h1>웹 브라우저를 위한 세션</h1>
+        <ol>
+          <li>세션이 시작되면, <strong>세션이 시작되었다는 사실</strong>을 <strong>쿠키에 저장</strong></li>
+          <li>세션에 대한 정보를 여러 요청에 걸쳐서 지속시키기 위해, 정보를 <strong><u>어딘가</u>에 저장</strong></li>
+          <li>세션이 만료되면, <strong>세션이 만료되었다는 사실</strong>을 <strong>쿠키에 반영</strong></li>
+        </ol>
+      </section>
+      <section>
+        <h1>세션 스토어</h1>
+        <p>세션에 대한 정보를 저장하는 저장소</p>
+        <ul>
+          <li>쿠키</li>
+          <li>데이터베이스</li>
+          <li>파일</li>
+          <li>...</li>
+        </ul>
+      </section>
+      <section>
+        <h1>세션 스토어의 선택</h1>
+        <p><strong>서비스의 요구사항</strong>에 맞춰서<br><strong>적절한 저장소를 선택</strong>하면 됨</p>
+        <ul>
+          <li>정보의 형태가 간단하고 자주 바뀔 일이 없으면 <strong>쿠키</strong></li>
+          <li>저장해야 할 정보의 양이 많으면 <strong>데이터베이스</strong></li>
+          <li>정보가 굉장히 자주 변경되면 <strong>메모리 기반 저장소</strong></li>
+        </ul>
+      </section>
+      <section>
+        <h1>세션? 세션 스토어?</h1>
+        <p><strong>'세션'</strong>과 <strong>'세션 스토어'</strong>는 엄연히 다른 말이지만 혼용되는 경우가 많습니다.</p>
+        <p><strong>'세션에 정보를 저장한다'</strong>는 말은 <strong>'세션 스토어에 정보를 저장한다'</strong>는 말과 같은 뜻이라고 생각하면 됩니다.</p>
+      </section>
+      <section>
+        <h1>Express + Session</h1>
+        <dl>
+          <dt><a href="https://www.npmjs.com/package/cookie-session">cookie-session</a></dt>
+          <dd>쿠키에 모든 정보를 저장하는 세션 스토어</dd>
+          <dt><a href="https://www.npmjs.com/package/express-session">express-session</a></dt>
+          <dd>쿠키에는 session id만 저장하고 실제 정보의 저장은 외부 저장소를 이용하는 세션 스토어. 외부 저장소에 대한 별도의 설정 필요</dd>
+        </dl>
+      </section>
+      <section>
+        <h1>cookie-session 예제</h1>
+        <a href="https://glitch.com/edit/#!/wpsn-cookie-session-example"></a>
+      </section>
+      <section>
+        <h1>인증/인가 실습</h1>
+      </section>
+      <section>
+        <h1>Next</h1>
+        <p><a href="2-1-4-security.html">Web Security</a></p>
+      </section>
+    </div>
+  </div>
+
+  <script src="lib/js/head.min.js"></script>
+  <script src="js/reveal.js"></script>
+
+  <script>
+      // More info about config & dependencies:
+      // - https://github.com/hakimel/reveal.js#configuration
+      // - https://github.com/hakimel/reveal.js#dependencies
+      Reveal.initialize({
+        dependencies: [
+          { src: 'plugin/markdown/marked.js' },
+          { src: 'plugin/markdown/markdown.js' },
+          { src: 'plugin/notes/notes.js', async: true },
+          { src: 'plugin/highlight/highlight.js', async: true, callback: function () { hljs.initHighlightingOnLoad(); } }
+        ]
+      });
+  </script>
+</body>
+
+</html>
+
+
+
+
+
+
+
