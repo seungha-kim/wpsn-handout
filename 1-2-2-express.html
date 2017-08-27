@@ -47,9 +47,11 @@
 // Express 인스턴스 생성
 const app = express()
 
-// 미들웨어 주입, 라우트 핸들러 등록
+// 미들웨어 주입
 app.use(sessionMiddleware())
 app.use(authenticationMiddleware())
+
+// 라우트 핸들러 등록
 app.get('/', (request, response) => {
   response.send('Hello express!')
 })
@@ -63,7 +65,7 @@ app.listen(3000, () => {
       <section>
         <h1>Routing</h1>
         <pre><code data-trim class="javascript">
-// 요청 메소드(GET, POST, ...)와 같은 이름의 메소드를 사용
+// HTTP 요청 메소드(GET, POST, ...)와 같은 이름의 메소드를 사용
 app.get('/articles', (req, res) => {
   res.send('Hello Routing!')
 })
@@ -110,7 +112,7 @@ app.get('/articles/:id', (req, res) => {
       <section>
         <h1>실습</h1>
         <!-- 배웠던 것 전부 실습  -->
-        <p><a target="_blank" href="https://glitch.com/edit/#!/wpsn-hello-express">프로젝트 링크</a></p>
+        <p><a target="_blank" href="https://glitch.com/edit/#!/wpsn-express-prac">프로젝트 링크</a></p>
       </section>
       <section>
         <h1>Next</h1>

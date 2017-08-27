@@ -33,7 +33,7 @@
         <h1>HTML form의 기본 동작</h1>
         <ul>
           <li>
-            HTML form을 전송하면, 입력된 정보가 기본적으로 percent encoding 되어 요청됨
+            HTML form을 전송하면, 입력된 정보가 기본적으로 <strong>percent encoding</strong> 되어 요청됨
             <ul>
               <li>
                 GET method
@@ -59,18 +59,23 @@ home=Cosby&amp;favorite+flavor=flies
       <section>
         <h1>multipart/form-data</h1>
         <ul>
-          <li>POST method로 정보를 보낼 때, percent encoding으로 파일을 업로드하는 것은 불가능</li>
-          <li>form에 <code>enctype="multipart/form-data"</code> 속성을 적용하면 파일 전송이 가능</li>
-          <li>body-parser 미들웨어는 multipart/form-data 형태의 요청을 지원하지 않음 (multer 필요)</li>
+          <li>기본 설정(percent encoding)으로는 폼으로 <strong>파일을 업로드하는 것은 불가능</strong></li>
+          <li>(클라이언트 측) form 태그에 <code><strong>enctype="multipart/form-data"</strong></code> 속성을 적용하면 파일 업로드 가능</li>
+          <li>(서버 측) body-parser 미들웨어는 multipart/form-data 형태의 요청을 지원하지 않음 (<a target="_blank" href="https://www.npmjs.com/package/multer">multer</a> 필요)</li>
         </ul>
-        <!-- https://developer.mozilla.org/ko/docs/Web/API/FormData -->
       </section>
       <section>
-        <a href="https://glitch.com/edit/#!/wpsn-form-example">HTML form 예제</a>
+        <h1>HTML Form 예제</h1>
+        <p><a target="_blank" href="https://glitch.com/edit/#!/wpsn-form-example">Link</a></p>
+        <ul>
+          <li>UUID</li>
+          <li>Redirection after submission</li>
+          <li>Form validation</li>
+        </ul>
       </section>
       <section>
         <h1>Next</h1>
-        <p><a href="1-3-2-urlshortener.html">URL Shortener 실습</a></p>
+        <p><a href="1-3-2-urlshortener.html">서비스 개발 실습 (URL Shortener)</a></p>
       </section>
     </div>
   </div>

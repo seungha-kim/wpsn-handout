@@ -40,11 +40,12 @@
           <li>REST API를 시험해볼 수 있는 도구</li>
           <li>다양한 편의기능 제공</li>
         </ul>
+        <p><a target="_blank" href="https://chrome.google.com/webstore/detail/postman/fhbjgbiflinjbdggehcddcbncdddomop">Chrome Webstore</a></p>
       </section>
 
       <section>
         <h1>Github REST API</h1>
-        <a href="https://developer.github.com/v3/" target="blank">Official link</a>
+        <a target="_blank" href="https://developer.github.com/v3/">Official link</a>
       </section>
 
       <section>
@@ -53,14 +54,15 @@
       <section>
         <h1>설치!</h1>
         <ul>
-          <li><a href="https://github.com/creationix/nvm" target="_blank">nvm</a></li>
-          <li><a href="https://github.com/coreybutler/nvm-windows" target="_blank">nvm-windows</a></li>
+          <li><a target="_blank" href="https://github.com/creationix/nvm">nvm</a></li>
+          <li><a target="_blank" href="https://github.com/coreybutler/nvm-windows">nvm-windows</a></li>
         </ul>
         <pre><code data-trim class="bash">
 # 주석: `#`으로 시작하는 명령은 bash에서 무시됩니다.
 # 아래 명령을 한 줄씩 차례대로 입력하세요
-$ nvm install stable
-$ nvm use latest # v8.4 이상
+$ nvm install 8.4
+$ nvm use 8.4
+$ nvm alias default 8.4 # nvm-windows는 필요없음
         </code></pre>
       </section>
       <section>
@@ -162,7 +164,7 @@ $ node (파일 경로)
           </ul>
         </section>
         <section>
-          <p><a href="http://thibaultlaurens.github.io/javascript/2013/04/29/how-the-v8-engine-works/" target="blank">How the V8 engine works?</a></p>
+          <p><a target="_blank" href="http://thibaultlaurens.github.io/javascript/2013/04/29/how-the-v8-engine-works/">How the V8 engine works?</a></p>
         </section>
       </section>
       <section>
@@ -373,7 +375,7 @@ $ npm start
             <li>실행 과정(보통 콜백 연쇄)의 <strong>생애 주기가 겹칠 수는 있지만</strong> 어떤 경우에도 두 자바스크립트 실행과정이 <strong>동시</strong>에 실행되는 경우는 없음</li>
             <li>내부적으로 <strong>메시지 큐</strong>를 활용하고 있으나, 모든 처리가 자동으로 이루어짐</li>
           </ul>
-          <p><a href="https://developer.mozilla.org/ko/docs/Web/JavaScript/EventLoop">MDN link</a></p>
+          <p><a target="_blank" href="https://developer.mozilla.org/ko/docs/Web/JavaScript/EventLoop">MDN link</a></p>
         </section>
       </section>
       <section>
@@ -676,7 +678,7 @@ async function readFileAsync() {
 readFileAsync()
         </code></pre>
       </section>
-      <section>
+      <section data-background="https://m.popkey.co/136a10/X03AG.gif">
         <h1>수고하셨습니다</h1>
       </section>
     </div>
