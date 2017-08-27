@@ -58,15 +58,16 @@
           <li>세션에 대한 정보를 여러 요청에 걸쳐서 지속시키기 위해, 정보를 <strong><u>어딘가</u>에 저장</strong></li>
           <li>세션이 만료되면, <strong>세션이 만료되었다는 사실</strong>을 <strong>쿠키에 반영</strong></li>
         </ol>
+        <p><small>* 위 방식은 널리 사용되는 방식일 뿐, 반드시 위와 같이 구현해야 하는 것은 아닙니다.</small></p>
       </section>
       <section>
         <h1>세션 스토어</h1>
-        <p>세션에 대한 정보를 저장하는 저장소</p>
+        <p>세션에 대한 정보를 저장하는 <u>어딘가</u></p>
         <ul>
           <li>쿠키</li>
           <li>데이터베이스</li>
           <li>파일</li>
-          <li>...</li>
+          <li>기타 정보를 저장할 수 있는 곳 어디든</li>
         </ul>
       </section>
       <section>
@@ -87,17 +88,21 @@
         <h1>Express + Session</h1>
         <dl>
           <dt><a href="https://www.npmjs.com/package/cookie-session">cookie-session</a></dt>
-          <dd>쿠키에 모든 정보를 저장하는 세션 스토어</dd>
+          <dd>쿠키에 모든 정보를 저장하는 세션 스토어. <br>첫 방문시 무조건 세션 시작</dd>
           <dt><a href="https://www.npmjs.com/package/express-session">express-session</a></dt>
-          <dd>쿠키에는 session id만 저장하고 실제 정보의 저장은 외부 저장소를 이용하는 세션 스토어. 외부 저장소에 대한 별도의 설정 필요</dd>
+          <dd>쿠키에는 세션 식별자만 저장하고 실제 정보의 저장은 외부 저장소(데이터베이스 등)를 이용하는 세션 스토어. 외부 저장소에 대한 별도의 설정 필요</dd>
         </dl>
       </section>
       <section>
         <h1>cookie-session 예제</h1>
-        <a href="https://glitch.com/edit/#!/wpsn-cookie-session-example"></a>
+        <p><a target="_blank" href="https://glitch.com/edit/#!/wpsn-cookie-session-example">Link</a></p>
+        <ul>
+          <li>서명을 통한 보안</li>
+        </ul>
       </section>
       <section>
         <h1>인증/인가 실습</h1>
+        <p><a target="_blank" href="https://glitch.com/edit/#!/wpsn-auth-prac">Link</a></p>
       </section>
       <section>
         <h1>Next</h1>
