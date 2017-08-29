@@ -1,11 +1,10 @@
 - 자바스크립트 심화 (iterator, generator)
-- HTTP 2.0
-- koa
 - lodash
-- HTTP Cache
 - connect-flash를 통한 더 나은 에러 메시지
-- VS Code 디버깅
-- HTML5 History API
-- Express Router
-- 자바스크립트 세미콜론 자동 삽입의 한계 - http://weicomes.tistory.com/135
-- EventEmitter
+- express-session
+- [x] VS Code 디버깅
+- [x] HTML5 History API
+- [x] 자바스크립트 세미콜론 자동 삽입의 한계 - http://weicomes.tistory.com/135
+- [x] pug
+- httpbin
+- editorconfig
