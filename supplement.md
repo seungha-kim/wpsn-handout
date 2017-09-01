@@ -8,3 +8,8 @@
 - [x] pug
 - httpbin
 - editorconfig
+- nodemon
+- chrome search engine
+- 영어 이야기
+- csrf
+- node vscode debugging
