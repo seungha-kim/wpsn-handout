@@ -44,13 +44,29 @@ app.use(helloMiddleware)
       <section>
         <h1>Middleware</h1>
         <ul>
-          <li><strong>그냥 함수</strong>, 즉 안에서 어떤 작업이든 가능</li>
+          <li><strong>함수</strong>, 즉 안에서 어떤 작업이든 가능</li>
           <li>request 객체, response 객체, <strong>next 함수</strong>를 인자로 받음</li>
           <li>request 객체, response 객체를 조작해서 기능 구현</li>
-          <li>app 객체나 라우트 핸들러에 갯수 제한 없이 주입 가능</li>
           <li><strong>다음 미들웨어</strong>를 동작시키기 위해 <strong>next 함수를 인자 없이 호출</strong></li>
+          <li><strong>등록된 순서대로</strong> 실행됨</li>
         </ul>
       </section>
+      <section>
+        <h1>app.use</h1>
+        <p>미들웨어를 앱 전체에서 동작하도록 주입하거나</p>
+        <pre><code data-trim>
+app.use(helloMiddleware)
+        </code></pre>
+        <p>특정 경로에서만 동작하도록 주입</p>
+        <pre><code data-trim>
+app.use('/some-path', helloMiddleware)
+        </code></pre>
+        <p>한 번에 여러 개 주입</p>
+        <pre><code data-trim>
+app.use(middleware1, middleware2, middleware3, ...)
+        </code></pre>
+      </section>
+
       <section>
         <h1>미들웨어로 하는 일</h1>
         <ul>
@@ -67,12 +83,12 @@ app.use(helloMiddleware)
       </section>
       <section>
         <h1>미들웨어 생태계</h1>
-        <p><a href="https://expressjs.com/ko/resources/middleware.html">Express resource</a></p>
-        <p><a href="https://www.npmjs.com/search?q=express+middleware">NPM search</a></p>
+        <p><a target="_blank" href="https://expressjs.com/ko/resources/middleware.html">Express resource</a></p>
+        <p><a target="_blank" href="https://www.npmjs.com/search?q=express+middleware">NPM search</a></p>
       </section>
       <section>
         <h1>미들웨어 예제</h1>
-        <p><a href="https://glitch.com/edit/#!/wpsn-middleware-example">Link</a></p>
+        <p><a target="_blank" href="https://glitch.com/edit/#!/wpsn-middleware-example">Link</a></p>
       </section>
       <section>
         <h1>미들웨어 vs 라우트 핸들러</h1>
@@ -93,12 +109,12 @@ app.get('/', (req, res, next) => {
       <section>
         <h1>실습</h1>
         <p>Custom 404 page</p>
-        <p><a href="https://glitch.com/edit/#!/wpsn-middleware-example">Link</a></p>
+        <p><a target="_blank" href="https://glitch.com/edit/#!/wpsn-middleware-example">Link</a></p>
       </section>
       <section>
         <h1>에러 처리 미들웨어</h1>
         <p>
-          <a href="https://expressjs.com/ko/guide/error-handling.html">Link</a>
+          <a target="_blank" href="https://expressjs.com/ko/guide/error-handling.html">Link</a>
         </p>
       </section>
       <section>

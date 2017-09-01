@@ -1,0 +1,123 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <title>Web Programming School - Node.js</title>
+
+  <link rel="stylesheet" href="css/reveal.css">
+  <link rel="stylesheet" href="css/theme/blood.css">
+
+  <!-- Theme used for syntax highlighting of code -->
+  <link rel="stylesheet" href="lib/css/zenburn.css">
+
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css';
+    document.getElementsByTagName('head')[0].appendChild(link);
+  </script>
+</head>
+
+<body>
+  <div class="reveal">
+    <div class="slides">
+      <section>
+        <h1>Ajax</h1>
+      </section>
+      <section>
+        ajax만의 특별한 동작방식이 있다. 그냥 HTTP 클라이언트가 아니라 여러가지 보안 관련 사항들이 적용되어 있다.
+      </section>
+      <section>
+        <h1>Axios</h1>
+        <ul>
+          <li><strong>Promise based</strong> HTTP client</li>
+          <li>브라우저와 Node.js에서 <strong>모두 사용 가능</strong></li>
+          <li>XMLHttpRequest, Fetch에 비해 <strong>편의 기능</strong>이 많음</li>
+        </ul>
+      </section>
+      <section>
+        <h1>Axios + json-server 예제</h1>
+        <p><a target="_blank" href="https://glitch.com/edit/#!/wpsn-axios-example">Link</a></p>
+      </section>
+      <section>
+        <h1>쿠키를 통한 인증 예제</h1>
+        <p><a href=""></a></p>
+      </section>
+      <section>
+        <h1>JWT (JSON Web Token)</h1>
+        https://blog.outsider.ne.kr/1160
+      </section>
+    </div>
+  </div>
+
+  <script src="lib/js/head.min.js"></script>
+  <script src="js/reveal.js"></script>
+
+  <script>
+      // More info about config & dependencies:
+      // - https://github.com/hakimel/reveal.js#configuration
+      // - https://github.com/hakimel/reveal.js#dependencies
+      Reveal.initialize({
+        dependencies: [
+          { src: 'plugin/markdown/marked.js' },
+          { src: 'plugin/markdown/markdown.js' },
+          { src: 'plugin/notes/notes.js', async: true },
+          { src: 'plugin/highlight/highlight.js', async: true, callback: function () { hljs.initHighlightingOnLoad(); } }
+        ]
+      });
+  </script>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+<!-- https://developer.mozilla.org/ko/docs/Web/API/FormData -->
+request
+request-promise
+
+axios?
+fetch?
+내가 fetch API를 쓰지 못했던 이유
+https://medium.com/little-big-programming/%EB%82%B4%EA%B0%80-fetch-api%EB%A5%BC-%EC%93%B0%EC%A7%80-%EB%AA%BB%ED%96%88%EB%8D%98-%EC%9D%B4%EC%9C%A0-3c23f0ec6b82
+https://medium.com/@thejasonfile/fetch-vs-axios-js-for-making-http-requests-2b261cdd3af5
+
+할일
+게시판
+url-shortener
+
+예제 보기
+프로필을 Ajax로 (얻어오기만)
+
+따라해보기
+할일을 Ajax로 (보내기까지)
+
+실습하기
+url-shortener를 Ajax로
+
+
+CORS
+
+axios - 서버에서도 똑같이 쓸 수 있다
+Github 정보를 가져와서 EJS로 보여주기
+
+socket.io
+socket.io - 새 할일이 있습니다
+
+쿠키랑 세션을 쓰면서 Ajax를...
+로그인
+프로필 편집
+채팅방 만들기
+채팅하기
+socket.io - 새 할일이 있습니다
