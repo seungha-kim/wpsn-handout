@@ -1,0 +1,9 @@
+
+CORS 대응의 어려움
+모바일 앱도 고려한 API (쿠키를 통해 인증을 하게 되면 모바일 앱이 사용하기 어려워짐)
+
+웹에서의 JWT 사용
+쿠키는 서버의 응답에 의해 쓰기가 이루어지고 localStorage는 클라이언트 측 자바스크립트에 의해 쓰기가 이루어진다는 차이점이 있음
+jwt 받아온 다음에 localStorage에 저장
+axios instance
+https://stormpath.com/blog/where-to-store-your-jwts-cookies-vs-html5-web-storage

@@ -30,15 +30,40 @@
         <h1>Ajax</h1>
       </section>
       <section>
-        ajax만의 특별한 동작방식이 있다. 그냥 HTTP 클라이언트가 아니라 여러가지 보안 관련 사항들이 적용되어 있다.
+        <h1>Ajax</h1>
+        <p><strong>비동기적인 웹 어플리케이션</strong>의 제작을 위한 <br><strong>클라이언트 측 웹 개발 기법</strong></p>
+        <p>...을 뜻하나 요즈음은 의미가 변형되어 <br><strong>웹 브라우저</strong>에서 <strong>XMLHttpRequest</strong> 혹은 <strong>fetch</strong>를 이용해서 보내는 <strong>HTTP 요청</strong>을 통칭하기도 함</p>
+      </section>
+      <section>
+        <h1>Ajax model</h1>
+        <img src="http://javascript-coder.com/wp-content/uploads/2014/11/ajax-block-diagram1.jpg" alt="">
+      </section>
+      <section>
+        <h1>Ajax의 장점</h1>
+        <ul>
+          <li>화면 전체를 다시 로드하지 않고도 내용을 갱신할 수 있어 더 나은 사용자 경험 제공</li>
+          <li>서버의 응답을 기다리는 동안에도 여전히 웹 어플리케이션을 사용 가능</li>
+          <li>필요한 자원만 서버에서 받아오게 되므로 트래픽이 줄어듬</li>
+        </ul>
+      </section>
+      <section>
+        <h1>Ajax의 단점</h1>
+        <ul>
+          <li>클라이언트 구현이 <strong>굉장히</strong> 복잡해짐</li>
+        </ul>
+      </section>
+      <section>
+        <h1>Ajax Library Comparison</h1>
+        <p><a target="_blank" href="http://andrewhfarmer.com/ajax-libraries/"><img src="http://i.imgur.com/ANJ9h3o.png" alt=""></a></p>
       </section>
       <section>
         <h1>Axios</h1>
         <ul>
           <li><strong>Promise based</strong> HTTP client</li>
           <li>브라우저와 Node.js에서 <strong>모두 사용 가능</strong></li>
-          <li>XMLHttpRequest, Fetch에 비해 <strong>편의 기능</strong>이 많음</li>
+          <li>XMLHttpRequest, fetch에 비해 사용하기 편하고 기능이 더 많음</li>
         </ul>
+        <p><a target="_blank" href="https://medium.com/little-big-programming/%EB%82%B4%EA%B0%80-fetch-api%EB%A5%BC-%EC%93%B0%EC%A7%80-%EB%AA%BB%ED%96%88%EB%8D%98-%EC%9D%B4%EC%9C%A0-3c23f0ec6b82"><small>참고글: 내가 fetch API를 쓰지 못했던 이유</small></a></p>
       </section>
       <section>
         <h1>Axios + json-server 예제</h1>
@@ -46,11 +71,11 @@
       </section>
       <section>
         <h1>쿠키를 통한 인증 예제</h1>
-        <p><a href=""></a></p>
+        <p><a target="_blank" href="https://glitch.com/edit/#!/wpsn-axios-auth-example">Link</a></p>
       </section>
       <section>
-        <h1>JWT (JSON Web Token)</h1>
-        https://blog.outsider.ne.kr/1160
+        <h1>Next</h1>
+        <p><a href="2-2-2-cors.html">CORS</a></p>
       </section>
     </div>
   </div>
@@ -74,50 +99,3 @@
 </body>
 
 </html>
-
-
-
-
-
-
-
-
-
-<!-- https://developer.mozilla.org/ko/docs/Web/API/FormData -->
-request
-request-promise
-
-axios?
-fetch?
-내가 fetch API를 쓰지 못했던 이유
-https://medium.com/little-big-programming/%EB%82%B4%EA%B0%80-fetch-api%EB%A5%BC-%EC%93%B0%EC%A7%80-%EB%AA%BB%ED%96%88%EB%8D%98-%EC%9D%B4%EC%9C%A0-3c23f0ec6b82
-https://medium.com/@thejasonfile/fetch-vs-axios-js-for-making-http-requests-2b261cdd3af5
-
-할일
-게시판
-url-shortener
-
-예제 보기
-프로필을 Ajax로 (얻어오기만)
-
-따라해보기
-할일을 Ajax로 (보내기까지)
-
-실습하기
-url-shortener를 Ajax로
-
-
-CORS
-
-axios - 서버에서도 똑같이 쓸 수 있다
-Github 정보를 가져와서 EJS로 보여주기
-
-socket.io
-socket.io - 새 할일이 있습니다
-
-쿠키랑 세션을 쓰면서 Ajax를...
-로그인
-프로필 편집
-채팅방 만들기
-채팅하기
-socket.io - 새 할일이 있습니다
