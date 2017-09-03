@@ -32,63 +32,92 @@
       <section>
         <h1>쿠키의 단점</h1>
         <ul>
-          <li>웹 브라우저에서 밖에 사용할 수 없음 (모바일 앱...?)</li>
-          <li>CORS 대응이 복잡함</li>
+          <li><strong>쿠키를 지원하는 클라이언트</strong>에서밖에 사용할 수 없음</li>
+          <li>적절히 관리되지 않은 쿠키는 <strong>보안에 취약</strong>하며, 관리를 하려고 해도 <strong>CORS 대응이 복잡함</strong></li>
         </ul>
       </section>
       <section>
-        <h1>Access Token</h1>
-        사용자의 자격증명(아이디, 패스워드)
-        bearer token
-        id, password를 사용하지 않는 이유
+        <h1>Token Based Auth</h1>
+        <ul class="long-text">
+          <li>토큰이란, <strong>사용자의 자격증명</strong>(아이디, 패스워드 등)을 통해 인증이 이루어진 후, <strong>특정 자원에 대한 자격증명</strong>으로서 <strong>대신 사용</strong>되는 인증 수단</li>
+          <li>서버에 요청을 할 때마다 <strong>토큰을 요청에 포함</strong>시켜서 전송 (주로 Authorization 헤더에 넣어서 전송)</li>
+        </ul>
+        <img src="https://i.stack.imgur.com/3NkXs.png" alt="">
+      </section>
+      <section>
+        <h1>Cookie vs Token</h1>
+        <img src="https://cdn.auth0.com/blog/cookies-vs-tokens/cookie-token-auth.png" alt="">
+      </section>
+      <section>
+        <h1>토큰 사용의 장점</h1>
+        <ul>
+          <li>다양한 인증 수단(전화번호, 공인인증서, 생체정보 등)의 인증 결과를 <strong>토큰이라는 하나의 수단으로 통일</strong>할 수 있음</li>
+          <li>쿠키를 사용하지 않음으로써 <strong>CORS 관련 문제를 회피</strong>할 수 있음</li>
+        </ul>
+      </section>
+      <section>
+        <h1>토큰 사용의 단점</h1>
+        <ul>
+          <li>매 요청에 토큰이 포함되게 되므로 <strong>적당히 짧은 길이</strong>를 유지해야 함</li>
+          <li><strong>토큰 유출</strong>에 대한 대비책이 필요 (토큰에 유효기간을 두거나, 유출된 토큰을 강제로 무효화하는 등의 방법을 사용)</li>
+          <li>쿠키와는 다르게, <strong>클라이언트에서 직접 토큰을 저장하고 관리</strong>해야 함</li>
+        </ul>
       </section>
       <section>
         <h1>Web Storage</h1>
-        localStorage
-        sessionStorage
-        쿠키 대비 용량도 크고 쓰기도 편하다...
-        쿠키는 서버의 응답에 의해 쓰기가 이루어지고 localStorage는 클라이언트 측 자바스크립트에 의해 쓰기가 이루어진다는 차이점이 있음
+        <ul>
+          <li>브라우저에서 키-값 쌍을 저장할 수 있는 저장소</li>
+          <li>쿠키에 비해 사용하기 편리하고 저장 가능한 용량도 큼(10MB 가량)</li>
+          <li>브라우저 탭이 닫히면 내용이 삭제되는 <strong>sessionStorage</strong>, 브라우저 탭이 닫혀도 내용이 유지되는 <strong>localStrage</strong>가 있음</li>
+        </ul>
       </section>
       <section>
-        웹에서의 JWT 사용
-        <p><img src="https://cdn.auth0.com/content/jwt/jwt-diagram.png" alt=""></p>
-      </section>
-      <section>
-        <h1>Access Token 예제</h1>
-        <h1>Axios Instance</h1>
+        <h1>Web Storage 실습</h1>
+        <img src="/image/webstorage.png" alt="">
       </section>
       <section>
         <h1>보안 상 주의사항</h1>
-        악의적인 공격자가 웹사이트에 스크립트를 삽입하는 공격(XSS)에 노출되지 않도록 신경써야 함
-        직접 DOM API를 사용하는 대신 EJS, React 같은 템플릿 언어를 사용하기만 해도 XSS에 대한 방어는 충분함
-      </section>
-      <section>
-        <h1>JWT</h1>
-        JSON Web Token
-        최근 널리 사용되고 있는 액세스 토큰 형식
-        토큰 안에 정보가 들어있다는 특징이 있음 - 데이터베이스에 토큰을 저장하는 시스템에서는 사용자가 누군지 확인하기 위해 데이터베이스를 읽어올 필요가 있는데, JWT를 사용하면 토큰 안에 정보가 들어있어서 데이터베이스에 접근하지 않고도 인증이 가능해짐
-        서명을 통해 조작을 방지함
-        유효기간
-        https://jwt.io/introduction/
-        https://stormpath.com/blog/where-to-store-your-jwts-cookies-vs-html5-web-storage
-        https://blog.outsider.ne.kr/1160
-        https://velopert.com/2448
-      </section>
-      <section>
-        <h1>JWT 예제</h1>
-        <p><a target="_blank" href="https://glitch.com/edit/#!/wpsn-jwt-example">Link</a></p>
-      </section>
-      <section>
-        <h1>JWT 보안</h1>
         <ul>
-          <li>일반 HTTP 요청으로는 토큰이 그대로 노출되기 때문에 반드시 HTTPS를 사용해야 함</li>
-          <li>JWT 안의 내용은 그대로 열어볼 수 있기 때문에 민감한 정보를 저장하면 안 됨</li>
-          <li>토큰의 유효기간을 짧게 하면 토큰이 유출되었을 때를 대비할 수 있음. 대신 이 때는 만료된 토큰을 수동으로 갱신해주는 작업이 필요함 (토큰을 갱신하기 위해 사용하는 refresh token을 따로 두기도 함)</li>
+          <li>토큰을 localStorage에 저장하게 되면 자바스크립트로 토큰을 탈취할 수 있게 되므로, <strong>웹사이트에 악성 스크립트를 삽입하는 공격(XSS)</strong>에 노출되지 않도록 신경써야 함</li>
+          <li>직접 DOM API를 사용하는 대신 EJS, React 같은 <strong>템플릿 언어를 사용하기만 해도 XSS에 대한 방어는 충분함</strong></li>
         </ul>
+      </section>
+      <section>
+        <h1>JSON Web Token</h1>
+        <ul>
+          <li>최근 널리 사용되고 있는 <a target="_blank" href="https://tools.ietf.org/html/rfc7519">토큰 형식의 표준</a></li>
+          <li>토큰 안에 <strong>JSON 형식</strong>으로 정보를 저장함</li>
+          <li>보안을 위해 서명 또는 암호화를 사용할 수 있음</li>
+        </ul>
+        <p><a target="_blank" href="https://jwt.io">jwt.io</a></p>
+      </section>
+      <section>
+        <h1>JWT 실습</h1>
+        <p><a target="_blank" href="https://glitch.com/edit/#!/wpsn-jwt-example">Link</a></p>
       </section>
       <section>
         <h1>Next</h1>
         <p><a href="2-2-4-fetch.html">Fetch API</a></p>
+      </section>
+      <section>
+        <h1>참고 링크</h1>
+        <ul>
+          <li>
+            <a target="_blank" href="https://jwt.io/introduction/">https://jwt.io/introduction/</a>
+          </li>
+          <li>
+            <a target="_blank" href="https://stormpath.com/blog/where-to-store-your-jwts-cookies-vs-html5-web-storage">https://stormpath.com/blog/where-to-store-your-jwts-cookies-vs-html5-web-storage</a>
+          </li>
+          <li>
+            <a target="_blank" href="https://blog.outsider.ne.kr/1160">https://blog.outsider.ne.kr/1160</a>
+          </li>
+          <li>
+            <a target="_blank" href="https://velopert.com/2448">https://velopert.com/2448</a>
+          </li>
+          <li>
+            <a target="_blank" href="https://auth0.com/blog/json-web-token-signing-algorithms-overview/">https://auth0.com/blog/json-web-token-signing-algorithms-overview/</a>
+          </li>
+        </ul>
       </section>
     </div>
   </div>

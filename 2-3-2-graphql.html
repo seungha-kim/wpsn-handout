@@ -1,0 +1,88 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <title>Web Programming School - Node.js</title>
+
+  <link rel="stylesheet" href="css/reveal.css">
+  <link rel="stylesheet" href="css/theme/blood.css">
+
+  <!-- Theme used for syntax highlighting of code -->
+  <link rel="stylesheet" href="lib/css/zenburn.css">
+
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css';
+    document.getElementsByTagName('head')[0].appendChild(link);
+  </script>
+</head>
+
+<body>
+  <div class="reveal">
+    <div class="slides">
+      <section>
+        <h1>GraphQL</h1>
+      </section>
+      <section>
+        <h1>REST API의 단점</h1>
+        <ul>
+          <li>각각의 자원마다 경로가 따로 있음. 즉, 여러 자원이 동시에 필요한 경우에는 <strong>요청을 여러 번 보내야 함</strong> (요청의 횟수 면에서 비효율적)</li>
+          <li>(보통의 경우) 자원의 필요한 속성만 얻어올 수 없음. 즉, <strong>일부 속성의 필요하더라도 전체 속성을 가져와야만 함</strong> (요청의 용량 면에서 비효율적)</li>
+        </ul>
+      </section>
+      <section>
+        <h1>GraphQL</h1>
+        <ul>
+          <li>Facebook에서 2015년 공개한 <strong>데이터 질의 언어</strong></li>
+          <li>REST API를 대체하기 위해 만들어짐</li>
+          <li>클라이언트에서 필요한 <strong>데이터의 구조</strong>를 GraphQL 언어로 정의한 후 질의할 수 있고, 서버는 그에 맞게 <strong>구조화된 데이터를 응답</strong></li>
+          <li>서버에서는 GraphQL 질의를 해석하기 위해 별도의 해석기가 필요하며, <a target="_blank" href="http://graphql.org/code/">여러 언어의 구현체</a>가 나와있는 상태</li>
+        </ul>
+      </section>
+      <section>
+        <h1>Example</h1>
+        <img src="/image/graphql-query.png" alt="">
+      </section>
+      <section>
+        <h1>Github API 실습</h1>
+        <p><a target="_blank" href="https://developer.github.com/v4/explorer/">Link</a></p>
+      </section>
+      <section>
+        <h1>Next</h1>
+        <p><a href="2-3-3-spa.html">Single Page Application</a></p>
+      </section>
+      <section>
+        <h1>참고 링크</h1>
+        <ul>
+          <li><a target="_blank" href="https://dev-blog.apollodata.com/graphql-vs-rest-5d425123e34b">https://dev-blog.apollodata.com/graphql-vs-rest-5d425123e34b</a></li>
+          <li><a target="_blank" href="http://graphql.org/learn/">http://graphql.org/learn/</a></li>
+        </ul>
+      </section>
+    </div>
+  </div>
+
+  <script src="lib/js/head.min.js"></script>
+  <script src="js/reveal.js"></script>
+
+  <script>
+      // More info about config & dependencies:
+      // - https://github.com/hakimel/reveal.js#configuration
+      // - https://github.com/hakimel/reveal.js#dependencies
+      Reveal.initialize({
+        dependencies: [
+          { src: 'plugin/markdown/marked.js' },
+          { src: 'plugin/markdown/markdown.js' },
+          { src: 'plugin/notes/notes.js', async: true },
+          { src: 'plugin/highlight/highlight.js', async: true, callback: function () { hljs.initHighlightingOnLoad(); } }
+        ]
+      });
+  </script>
+</body>
+
+</html>

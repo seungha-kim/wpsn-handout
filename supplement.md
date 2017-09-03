@@ -17,3 +17,5 @@
 - 프론트엔드
 - base64
 - express router
+- CDN
+- 해시 ***

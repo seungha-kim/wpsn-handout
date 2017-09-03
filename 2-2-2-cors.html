@@ -123,15 +123,15 @@
           <li>프론트엔드와 API 서버를 <strong>같은 도메인</strong>으로 제공한다.</li>
           <li>불가피하게 둘을 다른 도메인으로 제공해야 한다면
             <ol>
-              <li>간단하게 cors 미들웨어를 사용한다.</li>
-              <li><strong>쿠키를 쓰지 않는다.</strong></li>
+              <li>CORS를 허용한다 (<a href="https://www.npmjs.com/package/cors#simple-usage-enable-all-cors-requests">cors 미들웨어</a>를 사용하면 간단함)</li>
+              <li>CORS를 허용했으므로 <strong>쿠키를 쓰지 않는다.</strong></li>
             </ol>
           </li>
         </ol>
       </section>
       <section>
         <p>쿠키를 안 쓰면 어떻게 인증을 하죠 강사님?</p>
-        <p><a href="2-2-3-jwt.html">Access Token &amp JWT</a></p>
+        <p><a href="2-2-3-jwt.html">Access Token &amp; JWT</a></p>
       </section>
     </div>
 

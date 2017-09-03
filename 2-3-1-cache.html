@@ -1,1 +1,142 @@
-<!--https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching?hl=ko  -->
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <title>Web Programming School - Node.js</title>
+
+  <link rel="stylesheet" href="css/reveal.css">
+  <link rel="stylesheet" href="css/theme/blood.css">
+
+  <!-- Theme used for syntax highlighting of code -->
+  <link rel="stylesheet" href="lib/css/zenburn.css">
+
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css';
+    document.getElementsByTagName('head')[0].appendChild(link);
+  </script>
+</head>
+
+<body>
+  <div class="reveal">
+    <div class="slides">
+      <section>
+        <h1>HTTP Cache</h1>
+      </section>
+      <section>
+        <h1>Cache</h1>
+        <ol>
+          <li>(무기 등의) 은닉처</li>
+          <li>은닉하다</li>
+        </ol>
+        <div class="long-text">
+          <p>컴퓨터 분야에서의 캐시는 (주로 접근 속도의 개선을 위해) <strong>데이터를 미리 복사해 놓는 임시 저장소</strong>, 혹은 <strong>그 임시 저장소에 데이터를 저장하는 행위</strong>를 가리킴</p>
+          <p>'cache' 혹은 'caching'이라는 <strong>용어 자체는 특정 기술을 가리키는 것이 아니라,</strong> 접근 속도를 개선하기 위해 따로 저장소를 두는 '방법'을 가리킴</p>
+          <p>컴퓨터의 <strong>아주 많은 부분</strong>(CPU, GPU, HDD, 네트워크, 웹, 데이터베이스...)에서 사용되고 있음</p>
+        </div>
+      </section>
+      <section>
+        <h1>HTTP Cache</h1>
+        <ul>
+          <li>자원의 효율적 로딩을 위한 <a target="_blank" href="https://tools.ietf.org/html/rfc7234">웹 표준</a></li>
+          <li><strong>서버에서 가져온 자원</strong>(HTML, CSS, JS, 이미지, ...)을 <strong>가까운 곳</strong>(브라우저, 혹은 다른 서버)에 저장해놓고 재사용</li>
+          <li>캐시를 할 것인지 말 것인지, 어떻게 할 것인지를 결정하는 규칙이 복잡하고, 브라우저마다 조금씩 다름</li>
+        </ul>
+      </section>
+      <section>
+        <h1>Common Problem</h1>
+        <p><strong>캐시된 자원</strong>과 <strong>실제 자원</strong>의 <strong>내용이 달라지는 문제</strong>를 <br> 어떻게 해결할 것인가?</p>
+      </section>
+      <section>
+        <h1>Solution</h1>
+        <dl>
+          <dt>Expiration (만료)</dt>
+          <dd>정해진 시간이 지나면 <strong>캐시가 자동으로 삭제</strong>되도록 설정</dd>
+          <dt>Validation (검증)<dt>
+          <dd>서버에 요청을 보내서 <strong>캐시를 계속 사용할 수 있는지 확인</strong></dd>
+        </dl>
+      </section>
+      <section>
+        <h1>Cache 관련 헤더</h1>
+        <p><a target="_blank" href="https://developer.mozilla.org/ko/docs/Web/HTTP/Headers#Caching">Cache 범주</a></p>
+        <p><a target="_blank" href="https://developer.mozilla.org/ko/docs/Web/HTTP/Headers#Conditionals">Conditionals 범주</a></p>
+      </section>
+      <section>
+        <dl class="long-text">
+          <dt>Cache-Control</dt>
+          <dd>(요청, 응답) 캐시와 관련된 다양한 기능을 하는 지시자를 포함. no-cache, max-age가 많이 사용됨. no-cache, max-age=0 지시자는 캐시를 사용하지 않도록 하거나, 캐시를 아직도 쓸 수 있는지 검증하기 위해 사용됨 <a target="_blank" href="https://stackoverflow.com/questions/1046966/whats-the-difference-between-cache-control-max-age-0-and-no-cache"><small>(각각의 자세한 의미)</small></a></dd>
+          <dt>ETag</dt>
+          <dd>(응답) 캐시의 검증을 위해 사용되는 자원의 식별자. 주로 자원의 <a target="_blank" href="https://namu.wiki/w/%ED%95%B4%EC%8B%9C">해시값</a>이 사용되나, 마지막으로 수정된 시각, 혹은 버전 넘버를 사용하기도 함</dd>
+          <dt>Expires</dt>
+          <dd>(응답) 캐시를 만료시킬 <strong>시각</strong>을 서버에서 명시적으로 지정</dd>
+        </dl>
+      </section>
+      <section>
+        <dl class="long-text">
+          <dt>Last-Modified</dt>
+          <dd>(응답) 원래 자료가 마지막으로 수정된 시각</dd>
+          <dt>If-None-Match</dt>
+          <dd>(요청) 검증을 위해 사용됨. 이전에 저장해두었던 자원의 <strong>ETag</strong> 값을 If-None-Match 헤더의 값으로 요청에 포함시켜서 보내면, 서버는 해당 경로에 있는 자원의 ETag와 <strong>비교</strong>해보고 자원의 전송 여부를 결정</dd>
+          <dt>If-Modified-Since</dt>
+          <dd>(요청) 검증을 위해 사용됨. 이전에 저장해두었던 자원의 <strong>Last-Modified</strong> 값을 If-Modified-Since 헤더의 값으로 요청에 포함시켜서 보내면, 서버는 해당 경로에 있는 자원의 Last-Modified와 <strong>비교</strong>해보고 자원의 전송 여부를 결정</dd>
+        </dl>
+      </section>
+      <section>
+        <h1>브라우저 실습</h1>
+        <p><a target="_blank" href="https://wpsn-axios-example.glitch.me/">Link</a></p>
+      </section>
+      <section>
+        <h1>Cacheable Methods</h1>
+        <img src="https://imgur.com/HEDlwPSl.png" />
+        <p class="long-text">POST 메소드는 <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Glossary/cacheable">Cacheable</a> 범주에 포함되기는 하지만, 특별한 조건을 만족시켜야 하며 실무에서는 POST chace가 거의 사용되지 않습니다.</p>
+      </section>
+      <section>
+        <h1>캐시의 사용</h1>
+        <ul>
+          <li>브라우저는 이미 캐시를 잘 활용하도록 만들어져 있습니다.</li>
+          <li>Express는 이미 캐시를 잘 활용하도록 만들어져 있습니다.</li>
+          <li>오예</li>
+        </ul>
+        <p class="long-text">일단은 별다른 추가작업 없이도 편하게 캐시 기능을 사용할 수 있지만, 우리가 원하는대로 캐시가 동작하지 않을 때 그 <strong>원인을 파악하기 위해 캐시 관련 헤더는 숙지</strong>해두는 것이 좋습니다. 그리고 <strong>HTTP method를 용도에 맞게</strong> 사용하는 것도 중요합니다.</p>
+      </section>
+      <section>
+        <h1>Next</h1>
+        <p><a href="2-3-2-graphql.html">GraphQL</a></p>
+      </section>
+      <section>
+        <h1>참고 링크</h1>
+        <ul class="long-text">
+          <li><a target="_blank" href="https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching?hl=ko">https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching?hl=ko</a></li>
+          <li><a target="_blank" href="https://developer.mozilla.org/ko/docs/Web/HTTP/Caching">https://developer.mozilla.org/ko/docs/Web/HTTP/Caching</a></li>
+          <li><a target="_blank" href="https://stackoverflow.com/questions/18148884/difference-between-no-cache-and-must-revalidate">https://stackoverflow.com/questions/18148884/difference-between-no-cache-and-must-revalidate</a></li>
+          <li><a target="_blank" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.9.1">https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.9.1</a></li>
+        </ul>
+      </section>
+    </div>
+  </div>
+
+  <script src="lib/js/head.min.js"></script>
+  <script src="js/reveal.js"></script>
+
+  <script>
+      // More info about config & dependencies:
+      // - https://github.com/hakimel/reveal.js#configuration
+      // - https://github.com/hakimel/reveal.js#dependencies
+      Reveal.initialize({
+        dependencies: [
+          { src: 'plugin/markdown/marked.js' },
+          { src: 'plugin/markdown/markdown.js' },
+          { src: 'plugin/notes/notes.js', async: true },
+          { src: 'plugin/highlight/highlight.js', async: true, callback: function () { hljs.initHighlightingOnLoad(); } }
+        ]
+      });
+  </script>
+</body>
+
+</html>
