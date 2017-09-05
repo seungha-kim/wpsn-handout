@@ -1,21 +1,22 @@
+- node vscode debugging
+- pull request
 - 자바스크립트 심화 (iterator, generator)
 - lodash
-- connect-flash를 통한 더 나은 에러 메시지
-- express-session
+- nodemon
 - [x] VS Code 디버깅
 - [x] HTML5 History API
 - [x] 자바스크립트 세미콜론 자동 삽입의 한계 - http://weicomes.tistory.com/135
 - [x] pug
 - httpbin
-- editorconfig
-- nodemon
+- [x] editorconfig
 - chrome search engine
-- 영어 이야기
-- csrf
-- node vscode debugging
+- [x] 영어 이야기
+- [x] csrf
 - JSM report
-- 프론트엔드
+- [x] 프론트엔드 변천사
 - base64
 - express router
 - CDN
-- 해시 ***
+- [x] 해시 ***
+- connect-flash를 통한 더 나은 에러 메시지
+- express-session
