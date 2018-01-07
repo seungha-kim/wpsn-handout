@@ -1,0 +1,323 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <title>Web Programming School - Node.js</title>
+
+  <link rel="stylesheet" href="css/reveal.css">
+  <link rel="stylesheet" href="css/theme/blood.css">
+
+  <!-- Theme used for syntax highlighting of code -->
+  <link rel="stylesheet" href="lib/css/zenburn.css">
+
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css';
+    document.getElementsByTagName('head')[0].appendChild(link);
+  </script>
+</head>
+
+<body>
+  <div class="reveal">
+    <div class="slides">
+      <section>
+        <h1>Asynchronous JavaScript</h1>
+      </section>
+      <section>
+        <h1>Asynchronous Callback</h1>
+        <ul>
+          <li>함수를 호출할 때, 콜백까지 같이 인자에 넣어서 호출하는 비동기 프로그래밍 양식</li>
+          <li>콜백에서 에러 인자를 받는 방식으로 에러 처리를 함</li>
+          <li>Node.js 내장 모듈 전체가 이 방식을 사용하도록 만들어져 있음</li>
+        </ul>
+        <p><strong>주의!</strong> 모든 콜백이 비동기인 것은 아님</p>
+        <pre><code data-trim>
+> [1,2,3].map(x => x*x)
+[ 1, 4, 9 ]
+        </code></pre>
+      </section>
+
+      <section>
+        <h1>readFile</h1>
+        <pre><code data-trim>
+// readFile.js
+const fs = require('fs') // Node.js 내장 모듈
+fs.readFile('./calc.js', 'utf8', (err, data) => {
+  console.log(data)
+})
+console.log('done!')
+        </code></pre>
+        <pre><code data-trim>
+// readFileSync.js
+const fs = require('fs') // Node.js 내장 모듈
+const data = fs.readFileSync('./calc.js', 'utf8')
+console.log(data)
+console.log('done!')
+        </code></pre>
+      </section>
+
+      <section>
+        <h2>request 설치</h2>
+        <pre><code data-trim>
+$ # hello-npm 폴더 안에서 실행
+$ npm install --save request
+        </code></pre>
+      </section>
+      <section>
+        <h2>Github REST API 호출</h2>
+        <pre><code data-trim>
+// 유저 이름, 저장소, 할당된 이슈 갯수 출력하기
+const request = require('request')
+const apiUrl = 'https://api.github.com'
+const option = {
+  json: true,
+  auth: {
+    'user': 'username',
+    'pass': 'password',
+  },
+  headers: {
+    'User-Agent': 'request'
+  }
+}
+request.get(`${apiUrl}/user`, option, function (error, response, body) {
+  const name = body.name
+  if (error) console.error(error)
+  // 콜백 안에 콜백
+  request.get(`${apiUrl}/user/repos`, option, function (error, response, body) {
+    if (error) console.error(error)
+    const repoNames = body.map(item => item.name)
+    // 콜백 안에 콜백 안에 콜백
+    request.get(`${apiUrl}/issues`, option, function (error, response, body) {
+      if (error) console.error(error)
+      const issueNum = body.length
+      console.log(`name: ${name}`)
+      console.log('repos:')
+      repoNames.forEach(name => {
+        console.log(name)
+      })
+      console.log(`num of assigned issues: ${issueNum}`)
+    })
+  })
+})
+        </code></pre>
+      </section>
+      <section>
+        <h1>Callback Hell</h1>
+        <img src="https://image.slidesharecdn.com/promisesandchaininginangularjs-141027044455-conversion-gate02/95/promises-and-chaining-in-angularjs-into-callback-hell-and-back-again-17-638.jpg?cb=1414385382" alt="">
+      </section>
+      <section>
+        <h1>Promise</h1>
+        <p>비동기 작업의 <strong>결과</strong>를 담는 <strong>객체</strong></p>
+        <p>정확히 언제가 될지 모르지만, <strong>결국 성공 또는 실패의 상태</strong>를 갖게 됨</p>
+      </section>
+      <section>
+        <pre><code data-trim>
+// tenSec.js
+module.exports = function tenSec(value) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve(value)
+    }, 10000)
+  })
+}
+        </code></pre>
+        <pre><code data-trim>
+// REPL
+> const tenSec = require('./tenSec')
+> const p = tenSec(1)
+> p // 만든지 10초가 지나기 전
+Promise {
+  [pending],
+  ...
+> p // 만든지 10초가 지난 후
+Promise {
+  1,
+  ...
+        </code></pre>
+      </section>
+
+      <section>
+        <h1>.then</h1>
+        <pre><code data-trim>
+> tenSec('hello promise').then(value => {
+... console.log(value)
+... })
+Promise { // `then`은 Promise를 반환
+  [pending],
+  ...
+> // 10초 후
+'hello promise'
+        </code></pre>
+      </section>
+      <section>
+        <h1>Promise chaining</h1>
+        <pre><code data-trim>
+// chaining.js
+const tenSec = require('./tenSec')
+tenSec('hello promise')
+  .then(value => {
+    console.log(value)
+    return 1 // 위 `.then`은 값이 1인 Promise를 반환함
+  })
+  .then(value => {
+    console.log(value)
+    return tenSec('new promise') // Promise도 반환할 수 있음
+  })
+  .then(value => {
+    console.log(value)
+  })
+  .then(() => {
+    throw new Error('error in promise')
+  })
+  .catch(err => {
+    console.error(err)
+  })
+  .then(() => { // 에러 처리 이후에도 코드 실행 가능
+    console.log('done')
+  })
+        </code></pre>
+      </section>
+      <section>
+        <h1>readFile - promise</h1>
+        <pre><code data-trim>
+// readfilePromise.js
+const {promisify} = require('util') // Node.js 8.0.0부터 추가됨
+const fs = require('fs')
+const readFile = promisify(fs.readFile)
+readFile('./calc.js', 'utf8')
+  .then(data => {
+    console.log(data)
+  })
+  .catch(err => {
+    console.error(err)
+  })
+        </code></pre>
+      </section>
+      <section>
+        <h1>Promise의 특징</h1>
+        <p>이미 resolve 된 Promise에도 콜백을 실행할 수 있음</p>
+        <pre><code data-trim>
+> const resolved = Promise.resolve(1)
+> resolved.then(v => console.log(v))
+        </code></pre>
+        <p>`.then`에 넘겨진 콜백은 무조건 다음 루프에 실행됨</p>
+        <pre><code data-trim>
+> (function() {
+... Promise.resolve(1).then(v => console.log(v))
+... console.log('done!')
+... })()
+/* 출력:
+done!
+1
+*/
+        </code></pre>
+      </section>
+      <section>
+        <h1>Promise.all</h1>
+        <pre><code data-trim>
+// npm install --save request-promise
+const rp = require('request-promise')
+const apiUrl = 'https://api.github.com'
+const option = {
+  json: true,
+  auth: {
+    'user': 'username',
+    'pass': 'password',
+  },
+  headers: {
+    'User-Agent': 'request'
+  }
+}
+
+const userPromise = rp.get(`${apiUrl}/user`, option)
+const reposPromise = rp.get(`${apiUrl}/user/repos`, option)
+const issuesPromise = rp.get(`${apiUrl}/issues`, option)
+
+// 배열 내의 모든 Promise 객체가 완료되었을 때
+// resolve 되는 Promise를 만든다.
+Promise.all([userPromise, reposPromise, issuesPromise])
+  .then(([user, repos, issues]) => {
+    console.log(`name: ${user.name}`)
+    console.log('repos:')
+    repos.forEach(repo => {
+      console.log(repo.name)
+    })
+    console.log(`num of assigned issues: ${issues.length}`)
+  })
+        </code></pre>
+      </section>
+      <section>
+        <h1>Async/Await</h1>
+        <pre><code data-trim>
+const tenSec = require('./tenSec')
+
+async function resolveAfterTenSec() {
+  await tenSec()
+  return 1
+}
+
+resolveAfterTenSec().then(value => {
+  console.log(value)
+})
+        </code></pre>
+      </section>
+      <section>
+        <ul>
+          <li>ES2017에서 도입되어, 비동기식 코드를 동기식 코드처럼 쓸 수 있는 문법 제공</li>
+          <li>Chrome 55, Node.js 8.0.0 부터 사용가능</li>
+          <li><strong>async function</strong> 안에서 반환된 값은 최종적으로 Promise 객체로 변환되어 반환된다.</li>
+          <li>async function 안에서 쓸 수 있는 await 키워드는 현재 함수를 중단시키고 Promise 객체가 충족될 때까지 <strong>기다리지만, 스레드를 block 하지 않는다.</strong></li>
+          <li>에러 처리는 동기식 코드처럼 try, catch 블록을 통해서 한다.</li>
+        </ul>
+      </section>
+      <section>
+        <h1>readFile - async/await</h1>
+        <pre><code data-trim>
+// readfileAsync.js
+const {promisify} = require('util') // Node.js 8.0.0부터 추가됨
+const fs = require('fs')
+const readFile = promisify(fs.readFile)
+
+async function readFileAsync() {
+  try {
+    const data = await readFile('./calc.js', 'utf8')
+    console.log(data)
+  } catch (e) {
+    console.error(e)
+  }
+}
+
+readFileAsync()
+        </code></pre>
+      </section>
+      <section data-background="https://m.popkey.co/136a10/X03AG.gif">
+        <h1>수고하셨습니다</h1>
+      </section>
+    </div>
+  </div>
+
+  <script src="lib/js/head.min.js"></script>
+  <script src="js/reveal.js"></script>
+
+  <script>
+      // More info about config & dependencies:
+      // - https://github.com/hakimel/reveal.js#configuration
+      // - https://github.com/hakimel/reveal.js#dependencies
+      Reveal.initialize({
+        dependencies: [
+          { src: 'plugin/markdown/marked.js' },
+          { src: 'plugin/markdown/markdown.js' },
+          { src: 'plugin/notes/notes.js', async: true },
+          { src: 'plugin/highlight/highlight.js', async: true, callback: function () { hljs.initHighlightingOnLoad(); } }
+        ]
+      });
+  </script>
+</body>
+
+</html>
