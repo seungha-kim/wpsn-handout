@@ -49,21 +49,6 @@
         <img src="https://cdn.auth0.com/blog/cookies-vs-tokens/cookie-token-auth.png" alt="">
       </section>
       <section>
-        <h1>토큰 사용의 장점</h1>
-        <ul>
-          <li>다양한 인증 수단(전화번호, 공인인증서, 생체정보 등)의 인증 결과를 <strong>토큰이라는 하나의 수단으로 통일</strong>할 수 있음</li>
-          <li>쿠키를 사용하지 않음으로써 <strong>CORS 관련 문제를 회피</strong>할 수 있음</li>
-        </ul>
-      </section>
-      <section>
-        <h1>토큰 사용의 단점</h1>
-        <ul>
-          <li>매 요청에 토큰이 포함되게 되므로 <strong>적당히 짧은 길이</strong>를 유지해야 함</li>
-          <li><strong>토큰 유출</strong>에 대한 대비책이 필요 (토큰에 유효기간을 두거나, 유출된 토큰을 강제로 무효화하는 등의 방법을 사용)</li>
-          <li>쿠키와는 다르게, <strong>클라이언트에서 직접 토큰을 저장하고 관리</strong>해야 함</li>
-        </ul>
-      </section>
-      <section>
         <h1>Web Storage</h1>
         <ul>
           <li>브라우저에서 키-값 쌍을 저장할 수 있는 저장소</li>
@@ -75,11 +60,18 @@
         <h1>Web Storage 실습</h1>
         <img src="image/webstorage.png" alt="">
       </section>
-      <section>
-        <h1>보안 상 주의사항</h1>
+            <section>
+        <h1>Web Storage 장점 (vs 쿠키)</h1>
         <ul>
+          <li>쿠키를 지원하지 않는 경우에도 문제없이 사용할 수 있음</li>
+          <li>쿠키를 사용하지 않음으로써 <strong>CORS 관련 문제를 회피</strong>할 수 있음</li>
+        </ul>
+      </section>
+      <section>
+        <h1>Web Storage 단점 (vs 쿠키)</h1>
+        <ul>
+          <li>쿠키와는 다르게, <strong>클라이언트에서 직접 토큰을 저장하고 관리</strong>해야 함</li>
           <li>토큰을 localStorage에 저장하게 되면 자바스크립트로 토큰을 탈취할 수 있게 되므로, <strong>웹사이트에 악성 스크립트를 삽입하는 공격(XSS)</strong>에 노출되지 않도록 신경써야 함</li>
-          <li>직접 DOM API를 사용하는 대신 EJS, React 같은 <strong>템플릿 언어를 사용하기만 해도 XSS에 대한 방어는 충분함</strong></li>
         </ul>
       </section>
       <section>
